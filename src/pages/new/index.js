@@ -1,15 +1,8 @@
 import React, { Component } from "react";
 import ImagePicker from "react-native-image-picker";
 
-import {
-  View,
-  StyleSheet,
-  TouchableOpacity,
-  Text,
-  TextInput,
-  Image
-} from "react-native";
-import api from "../services/api";
+import { View, StyleSheet, TouchableOpacity, Text, Image } from "react-native";
+import api from "../../services/api";
 // import { Container } from './styles';
 
 export default class New extends Component {

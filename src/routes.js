@@ -1,9 +1,5 @@
 import React from "react";
-import {
-  createSwitchNavigator,
-  createStackNavigator,
-  createAppContainer
-} from "react-navigation";
+import { createStackNavigator, createAppContainer } from "react-navigation";
 import { Image } from "react-native";
 import logo from "./assets/logo.png";
 
@@ -11,10 +7,10 @@ import New from "./pages/new";
 import Feed from "./pages/feed";
 
 const Routes = createAppContainer(
-  createSwitchNavigator(
-    {
-      New,
-      Feed
+  createStackNavigator(
+    {      
+      Feed,
+      New
     },
     {
       defaultNavigationOptions: {

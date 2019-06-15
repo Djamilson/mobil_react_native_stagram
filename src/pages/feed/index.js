@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import api from "../services/api";
+import api from "../../services/api";
 import io from "socket.io-client";
 
 import {
@@ -10,11 +10,12 @@ import {
   TouchableOpacity,
   FlatList
 } from "react-native";
-import camera from "../assets/camera.png";
-import more from "../assets/more.png";
-import like from "../assets/like.png";
-import comment from "../assets/comment.png";
-import send from "../assets/send.png";
+
+import camera from "../../assets/camera.png";
+import more from "../../assets/more.png";
+import like from "../../assets/like.png";
+import comment from "../../assets/comment.png";
+import send from "../../assets/send.png";
 
 // import { Container } from './styles';
 
@@ -41,7 +42,7 @@ export default class Feed extends Component {
   }
 
   registerToSocket = () => {
-    const socket = io("http://localhost:3333");
+    const socket = io("http://192.168.10.103:3333");
 
     console.log("==> <==", socket);
     socket.on("post", newPost => {
@@ -61,15 +62,14 @@ export default class Feed extends Component {
     });
   };
 
-  handleLike = (id) => {
+  handleLike = id => {
     api.post(`/posts/${id}/like`);
   };
-
 
   render() {
     return (
       <View style={styles.container}>
-        <FileList
+        <FlatList
           data={this.state.feed}
           keyExtractor={post => post._id}
           renderItem={({ item }) => (
@@ -83,12 +83,17 @@ export default class Feed extends Component {
               </View>
               <Image
                 style={styles.feedImage}
-                source={{ uri: `http://localhost:3333/files/${item.image}` }}
+                source={{
+                  uri: `http://192.168.10.103:3333/files/${item.image}`
+                }}
               />
 
-              <View>
-                <View>
-                  <TouchableOpacity stylse={styles.action} onPress={() => this.handleLike(item._id)}>
+              <View style={styles.feedItemFooter}>
+                <View style={styles.actions}>
+                  <TouchableOpacity
+                    stylse={styles.action}
+                    onPress={() => this.handleLike(item._id)}
+                  >
                     <Image source={like} />
                   </TouchableOpacity>
                   <TouchableOpacity stylse={styles.action} onPress={() => {}}>
@@ -110,7 +115,7 @@ export default class Feed extends Component {
   }
 }
 
-const states = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     flex: 1
   },
